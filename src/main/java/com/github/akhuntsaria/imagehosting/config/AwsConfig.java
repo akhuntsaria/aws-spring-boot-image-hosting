@@ -12,11 +12,15 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 public class AwsConfig {
 
-    @Value("${aws.access-key}")
-    private String awsAccessKey;
+    private final String awsAccessKey;
 
-    @Value("${aws.secret-key}")
-    private String awsSecretKey;
+    private final String awsSecretKey;
+
+    public AwsConfig(@Value("${aws.access-key}") String awsAccessKey,
+                     @Value("${aws.secret-key}") String awsSecretKey) {
+        this.awsAccessKey = awsAccessKey;
+        this.awsSecretKey = awsSecretKey;
+    }
 
     @Bean
     public AmazonS3 s3() {
