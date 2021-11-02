@@ -8,6 +8,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.view.RedirectView;
 
+import java.util.Optional;
+
 @Controller
 public class HomeController {
 
@@ -24,13 +26,13 @@ public class HomeController {
 
     @PostMapping
     public RedirectView upload(@RequestParam("file") MultipartFile file) {
-        String id = s3Service.upload(file);
+        Optional<String> id = s3Service.upload(file);
 
-        if (id == null) {
+        if (id.isEmpty()) {
             //TODO: handle errors
             return new RedirectView("/");
         }
 
-        return new RedirectView("/i/" + id);
+        return new RedirectView("/i/" + id.get());
     }
 }

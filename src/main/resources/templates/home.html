@@ -1,29 +1,23 @@
 <!DOCTYPE HTML>
-<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{base}"
+      lang="en">
 <head>
     <title>Image Hosting</title>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-
-    <link rel="icon" type="image/png" th:href="@{/img/favicon.png}" />
-
-    <link rel="stylesheet" th:href="@{/css/bulma.min.css}"/>
-    <link rel="stylesheet" th:href="@{/fontawesome/css/all.min.css}"/>
 </head>
-<body>
-<section class="section">
-    <div class="container">
-        <h1 class="title">Upload image to share it with someone. That's it.</h1>
-        <form action="/" method="post" enctype="multipart/form-data">
-            <div class="file is-boxed">
-                <label class="file-label">
-                    <input class="file-input"
-                           type="file"
-                           name="file"
-                           accept=".jpg,.jpeg,.png,.gif,.tiff"
-                           onchange="document.querySelector('form').submit()">
+<div layout:fragment="content">
+    <h1 class="title">Upload image to share it with someone. That's it.</h1>
+    <form action="/" method="post" enctype="multipart/form-data">
+        <div class="file is-boxed">
+            <label class="file-label">
+                <input class="file-input"
+                       type="file"
+                       name="file"
+                       accept=".jpg,.jpeg,.png,.gif,.tiff"
+                       onchange="document.querySelector('form').submit()">
 
-                    <span class="file-cta">
+                <span class="file-cta">
                         <span class="file-icon">
                             <i class="fas fa-upload"></i>
                         </span>
@@ -31,10 +25,8 @@
                             Choose a file…
                         </span>
                     </span>
-                </label>
-            </div>
-        </form>
-    </div>
-</section>
-</body>
+            </label>
+        </div>
+    </form>
+</div>
 </html>

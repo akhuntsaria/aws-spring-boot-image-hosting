@@ -1,7 +1,7 @@
 package com.github.akhuntsaria.imagehosting.service;
 
 import com.amazonaws.services.s3.AmazonS3;
-import com.amazonaws.services.s3.model.ObjectMetadata;
+import com.amazonaws.services.s3.model.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
+import java.util.Optional;
 import java.util.UUID;
 
 @Service
@@ -26,11 +27,21 @@ public class S3Service {
         this.bucketName = bucketName;
     }
 
+    public Optional<S3Object> findById(String id) {
+        try {
+            return Optional.ofNullable(amazonS3.getObject(bucketName, id));
+        } catch (AmazonS3Exception exception) {
+            log.error("Could not load object with id {}", id, exception);
+        }
+
+        return Optional.empty();
+    }
+
     /**
      * @param file file
      * @return uploaded file's id
      */
-    public String upload(MultipartFile file) {
+    public Optional<String> upload(MultipartFile file) {
         String id = UUID.randomUUID().toString();
         ObjectMetadata metadata = new ObjectMetadata();
         metadata.addUserMetadata("original-filename", file.getOriginalFilename());
@@ -40,11 +51,11 @@ public class S3Service {
 
             log.info("File {} was uploaded with id {}", file.getOriginalFilename(), id);
 
-            return id;
+            return Optional.of(id);
         } catch (IOException e) {
             log.error("Could not upload file {}", file.getOriginalFilename(), e);
         }
 
-        return null;
+        return Optional.empty();
     }
 }

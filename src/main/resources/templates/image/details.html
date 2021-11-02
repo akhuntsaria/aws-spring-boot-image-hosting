@@ -1,0 +1,43 @@
+<!DOCTYPE HTML>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{/base}"
+      lang="en">
+<head>
+    <title th:text="${'Image ' + originalFilename}"></title>
+</head>
+<div layout:fragment="content">
+    <h1 class="title" th:text="${originalFilename}"></h1>
+    <img class="mb-1" th:src="${'/i/' + id + '/d'}" th:alt="${originalFilename}">
+
+    <div class="mb-2">
+        <span class="icon"><i class="fas fa-eye"></i></span>
+        <span th:text="${views}"></span>
+    </div>
+
+    <div class="buttons">
+        <button class="button is-link is-light" onclick="copyUrl()">
+            <span class="icon-text">
+                <span class="icon">
+                    <i class="fas fa-copy"></i>
+                </span>
+                <span>Copy link</span>
+            </span>
+        </button>
+        <a class="button is-light" href="/">
+            <span class="icon-text">
+                <span class="icon">
+                    <i class="fas fa-home"></i>
+                </span>
+                <span>Home</span>
+            </span>
+        </a>
+    </div>
+
+    <script>
+        function copyUrl() {
+            navigator.clipboard.writeText(window.location.href);
+        }
+    </script>
+</div>
+</html>
