@@ -7,7 +7,7 @@ files and DynamoDb is used for storing view counts.
 * AWS account
 
 # Getting started
-* Create DynamoDB table
+* Create DynamoDB table with primary key `id`
 * Create S3 bucket
 * Specify properties in  `src\main\resources\application.properties`
   * AWS access key
@@ -17,7 +17,3 @@ files and DynamoDb is used for storing view counts.
   * S3 bucket name
 * Start application (`ImageHostingApplication::main`)
 * Visit [http://localhost:8080](http://localhost:8080)
-
-# Screenshots
-![Home](https://i.imgur.com/8szLZGi.png "Home")
-![Image details](https://i.imgur.com/9FPUaFf.png "Image details")
